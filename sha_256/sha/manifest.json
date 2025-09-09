@@ -1,0 +1,11 @@
+{
+  "name": "sha",
+  "binaryPath": "./target/riscv-guest/riscv32im-risc0-zkvm-elf/docker/sha/sha",
+  "imageId": "75029efa53432a9030e5e76d58fb34dfa786cd0f6182ed0741d635ff5e4f0341",
+  "inputOrder": [
+    "Public",
+    "Private"
+  ],
+  "signature": "sEVhBakLM3GH3uEYBbWF4LSs42r2tK23dRyNLrqoD7D9XDW4nBPvSB7UovAdGvjbDEM3LxHfhwXhZckqF9aTUaa",
+  "size": 143684
+}
