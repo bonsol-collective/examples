@@ -407,18 +407,6 @@ pub fn claim_escrow(
     )
     .map_err(|_| ProgramError::InvalidInstructionData)?;
 
-    msg!("requester: {:?}, balance: {:?}", requester.key, requester.lamports());
-    msg!("payer: {:?}, balance: {:?}", payer.key, payer.lamports());
-    msg!("system_program: {:?}, balance: {:?}", system_program.key, system_program.lamports());
-    msg!("execution_account: {:?}, balance: {:?}", execution_account.key, execution_account.lamports());
-    msg!("bonsol_program: {:?}, balance: {:?}", bonsol_program.key, bonsol_program.lamports());
-    msg!("image_id_account: {:?}, balance: {:?}", image_id_account.key, image_id_account.lamports());
-    msg!("escrow_account: {:?}, balance: {:?}", escrow_account.key, escrow_account.lamports());
-    msg!("receiver: {:?}, balance: {:?}", receiver.key, receiver.lamports());
-    msg!("program_id_account: {:?}, balance: {:?}", program_id_account.key, program_id_account.lamports());
-
-    msg!("bump: {}, bump2: {}", bump, bump2);
-
     invoke_signed(
         &bonsol_ix,
         &[
@@ -481,9 +469,6 @@ pub fn handle_claim_callback(
     if callback_output.committed_outputs.is_empty() {
         return Err(ProgramError::InvalidInstructionData);
     }
-
-    msg!("Callback committed outputs length: {:?}", callback_output.committed_outputs.len());
-    msg!("Callback committed outputs (bytes): {:?}", callback_output.committed_outputs);
 
     // Parse the hash result from Bonsol
     if let Ok(computed_hash_str) = std::str::from_utf8(&callback_output.committed_outputs) {

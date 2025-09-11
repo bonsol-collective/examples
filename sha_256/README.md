@@ -55,3 +55,44 @@ Bonsol computes hash, Solana verifies and releases
 ## Why Bonsol?
 
 Bonsol enables off-chain SHA-256 computation with zero-knowledge proofs, allowing larger input sizes than native Solana constraints. The system ensures trustless verification: funds only release when the correct pre-image is provided.
+
+
+**Setting Up Environment**
+1. Navigate to the bonsol root directory:
+	- Start the Local Validator
+	```bash
+	./bin/validator.sh
+	```
+	- Run the Bonsol Prover Node
+	```bash
+	./bin/run-node.sh
+	```
+	- Run the Local ZK Program Server
+	```bash
+	cargo run -p local-zk-program-server
+	```
+2. Navigate to `examples/sha_256/data-server` and start the data server:
+	```bash
+	npm install
+	npm run start
+	```
+3. Navigate to `examples/sha_256/sha`, build and deploy the Bonsol application
+	```bash
+	bonsol build --zk-program-path .
+	bonsol deploy url --url http://localhost:8080 --manifest-path manifest.json
+	```
+4. Navigate to `examples/sha_256/sol-program`, build and deploy the Sol
+	- update the `SHA256_IMAGE_ID` with the response from previous step in `lib.rs` and `client.ts`
+	- deploy the solana program
+	```bash
+	cargo build-sbf
+	solana program deploy ./target/deploy/sol-program.so
+	```
+5. Navigate to `examples/sha_256/client`, install dependencies and run the client
+	```bash
+	npm install
+	ts-node src/client.ts
+	```
+***NOTE***
+- You need to configure/sync the output of `data-server` and `secret` in `client.ts` to successfully claim the escrow.
+- For every new request, you need to update `executionId` in `client.ts` to avoid duplicate transaction errors.
